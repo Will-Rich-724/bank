@@ -24,15 +24,16 @@ const Transfer = (props) => {
 
     const fromHandler = (accountId) => {
         console.log(accountId);
-        // console.log(props.id)
-        // axios.get(`http://localhost:8000/api/user/${props.id}/${accountId}`, { withCredentials: true})
-        //     .then(res => {
-        //         console.log(res.data);
-        //     })
-        //     .catch(err => console.log(err));
         let fromAcct = accounts.find(acct => {
             return acct._id === accountId});
         setFromAccount(fromAcct);
+    };
+
+    const toHandler = (accountId) => {
+        console.log(accountId);
+        let toAcct = accounts.find(acct => {
+            return acct._id === accountId});
+        setToAccount(toAcct);
     };
 
     const transferFunds = () => {
@@ -55,11 +56,13 @@ const Transfer = (props) => {
             </div>
             <div>
                 <h3>To:</h3>
-                <select onChange={(e) => setToAccount(e.target.value)} defaultValue={accounts[0]}>
+                <select onChange={(e) => toHandler(e.target.value)} defaultValue={accounts[0]}>
                     {accounts.map((account) =>(
                     <option key={account._id} value={account._id} >{account.nickName}</option>))}
                 </select>
-                <p>Balance: {toAccount.balance}</p>
+                {
+                    toAccount.balance ? <p>Balance: {toAccount.balance}</p> : null
+                }
             </div>
             <div>
             <label>Transfer Amount: </label>

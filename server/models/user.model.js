@@ -7,6 +7,7 @@ const AccountSchema = new mongoose.Schema ({
     },
     accountType: {
         type: String,
+        enum: ['Savings', 'Checking', 'Retirement', 'Investment']
     },
     balance: {
         type: Number,

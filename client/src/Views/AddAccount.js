@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const AddAccount = (props) => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [accounts, setAccounts] = useState([]);
     const [nickName, setNickName] = useState("");
-    const [accountType, setAccountType] = useState("");
+    const [accountType, setAccountType] = useState("Savings");
     const [balance, setBalance] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -30,7 +31,7 @@ const AddAccount = (props) => {
         },
             { withCredentials: true })
             .then(res => {console.log(res)
-            navigate(`/${props._id}`)})
+            navigate(`/${props.id}`)})
             .catch(err => console.log(err));
     }
 
@@ -44,9 +45,16 @@ const AddAccount = (props) => {
                     {errors.nickName ? <p>{errors.nickName.message}</p> : ""}
                 </div>
                 <div>
-                    <label>Account Type:</label>
+                    {/* <label>Account Type:</label>
+                    enum: ['Savings', 'Checking', 'Retirement', 'Investment']
                     <input type="text" name="accountType" onChange={e => setAccountType(e.target.value)} value={accountType}></input>
-                    {errors.accountType ? <p>{errors.accountType.message}</p> : ""}
+                    {errors.accountType ? <p>{errors.accountType.message}</p> : ""} */}
+                    <select onChange={(e) => setAccountType(e.target.value)} defaultValue={""}>
+                    <option value="Savings">Savings</option>
+                    <option value="Checking">Checking</option>
+                    <option value="Retirement">Retirement</option>
+                    <option value="Investment">Investment</option>
+                    </select>
                 </div>
                 <div>
                     <label>Deposit:</label>

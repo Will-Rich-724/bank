@@ -16,8 +16,6 @@ const Transfer = (props) => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
                 setAccounts(res.data.accounts);
-                // setFromAccount(res.data.accounts[0]);
-                // setToAccount(res.data.accounts[0]);
             })
             .catch(err => console.log(err));
     }, []);
@@ -37,7 +35,11 @@ const Transfer = (props) => {
     };
 
     const transferFunds = () => {
-
+        let amount = parseFloat(transferAmount)
+        fromAccount.balance -= amount;
+        console.log(fromAccount.balance);
+        toAccount.balance += amount;
+        console.log(toAccount.balance);
     };
 
     return (
@@ -45,7 +47,7 @@ const Transfer = (props) => {
             <h2>Transfer Between Accounts</h2>
             <div>
                 <h3>From:</h3>
-                <select onChange={(e) => fromHandler(e.target.value)} defaultValue={accounts[0]}>
+                <select onChange={(e) => fromHandler(e.target.value)}>
                     <option value={0} >Select an Account</option>
                     {accounts.map((account) =>(
                     <option key={account._id} value={account._id} >{account.nickName}</option>))}
@@ -56,7 +58,8 @@ const Transfer = (props) => {
             </div>
             <div>
                 <h3>To:</h3>
-                <select onChange={(e) => toHandler(e.target.value)} defaultValue={accounts[0]}>
+                <select onChange={(e) => toHandler(e.target.value)}>
+                    <option value={0}>Select an Account</option>
                     {accounts.map((account) =>(
                     <option key={account._id} value={account._id} >{account.nickName}</option>))}
                 </select>
@@ -66,7 +69,7 @@ const Transfer = (props) => {
             </div>
             <div>
             <label>Transfer Amount: </label>
-            <input type="number" defaultValue={0} onChange={(e) => setTransferAmount(e.target.value)} />
+            <input type="number" step=".01" onChange={(e) => setTransferAmount(e.target.value)} />
             </div>
             <div>
                 <button onClick={(e) => transferFunds()}>Transfer</button>

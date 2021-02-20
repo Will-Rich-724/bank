@@ -10,6 +10,7 @@ module.exports = app => {
 
     app.post("/api/user/:id/account", userController.createAccount);
     app.get("/api/user/:user_id/:account_id", userController.getOneAccount);
+    app.put("/api/user/:user_id/:account_id", userController.updateOneAccount);
 
     app.get("/api/user/:id", authenticate, userController.getOne);
 }

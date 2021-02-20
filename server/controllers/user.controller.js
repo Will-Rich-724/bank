@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { findByIdAndUpdate } = require("../models/user.model");
 
 module.exports = {
     register(req, res) {
@@ -72,17 +73,23 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
-    createAccount (req, res) {
-        User.updateOne({ _id: req.params.id}, {'$push': {accounts: { '$each': [req.body]}}}, {session: null})
-            .then(newAccount => res.json(newAccount))
-            .catch(err => res.json(err));
-    },
-
     getOneAccount(req, res) {
         User.findById(req.params.user_id, function(err, user) {
             if (err)
                 res.json(err);
             res.json(user.accounts.id(req.params.account_id));
         });
+    },
+
+    createAccount (req, res) {
+        User.updateOne({ _id: req.params.id}, {'$push': {accounts: { '$each': [req.body]}}}, {session: null})
+            .then(newAccount => res.json(newAccount))
+            .catch(err => res.json(err));
+    },
+
+    updateOneAccount(req, res) {
+        User.updateOne({ _id: req.params.user_id, 'account._id' : req.params.account_id}, {'$set': {'accounts.$' : [req.body]}}, {session: null})
+        .then(updatedAccount => res.json(updatedAccount))
+        .catch(err => res.json(err));
     }
 }

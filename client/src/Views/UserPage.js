@@ -18,9 +18,12 @@ const UserPage = (props) => {
     }, []);
 
     return(
-        <div>
-            <h1>{firstName} {lastName}</h1>
-            <h2>Accounts:</h2>
+        <div className="main-body">
+            <div style={{display : "inline-block"}}><p>Welcome:</p>
+            <p>{firstName}</p>
+            </div>
+            <div style={{display : "inline-block"}}>
+            <p>Accounts:</p>
             <table>
                 <tr>
                     <th>Account Name</th>
@@ -36,7 +39,9 @@ const UserPage = (props) => {
                 ))}
             </table>
             <Link to={`/${props.id}/account`}><button>Open a new account</button></Link>
+            <br/>
             <Link to={`/${props.id}/transfer`}><button>Transfer between accounts</button></Link>
+            </div>
         </div>
     )
 }

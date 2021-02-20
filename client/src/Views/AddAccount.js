@@ -35,7 +35,7 @@ const AddAccount = (props) => {
     }
 
     return (
-        <div>
+        <div className="main-body">
             <h1>Open a New Account</h1>
             <form onSubmit={AddAccount}>
                 <div>
@@ -55,6 +55,10 @@ const AddAccount = (props) => {
                 </div>
                 <input type="submit" value="Open Account"/>
             </form>
+            <br/>
+            <div>
+                <Link to={`/${props.id}`}><button>Back</button></Link>
+            </div>
         </div>
     )
 };

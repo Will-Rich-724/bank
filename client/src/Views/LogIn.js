@@ -7,10 +7,10 @@ import SignIn from '../Components/SignIn';
 const LogIn = (props) => {
     return (
         <div className="main-body">
-            <div>
+            <div style={{display : "inline-block"}}>
                 <p>PLACE HOLDER FOR BANK LOGO</p>
             </div>
-            <div>
+            <div style={{display : "inline-block"}}>
                 <SignIn />
                 <Link to={'/register'}><button>Sign Up</button></Link>
             </div>

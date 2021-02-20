@@ -1,5 +1,18 @@
 .App {
+  margin: 0 auto;
   text-align: center;
+  background-image: linear-gradient(to bottom right, lightblue, lightgreen);
+  height: 1000px;
+  width: 1000px;
+  vertical-align: top;
+}
+
+.main-body {
+  margin-left: 10%;
+  width: 80%;
+  background-color: white;
+  border-radius: 25px;
+  padding : 25px;
 }
 
 .App-logo {

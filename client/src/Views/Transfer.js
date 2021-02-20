@@ -23,14 +23,16 @@ const Transfer = (props) => {
     const fromHandler = (accountId) => {
         console.log(accountId);
         let fromAcct = accounts.find(acct => {
-            return acct._id === accountId});
+            return acct._id === accountId
+        });
         setFromAccount(fromAcct);
     };
 
     const toHandler = (accountId) => {
         console.log(accountId);
         let toAcct = accounts.find(acct => {
-            return acct._id === accountId});
+            return acct._id === accountId
+        });
         setToAccount(toAcct);
     };
 
@@ -43,36 +45,42 @@ const Transfer = (props) => {
     };
 
     return (
-        <div>
-            <h2>Transfer Between Accounts</h2>
-            <div>
-                <h3>From:</h3>
-                <select onChange={(e) => fromHandler(e.target.value)}>
-                    <option value={0} >Select an Account</option>
-                    {accounts.map((account) =>(
-                    <option key={account._id} value={account._id} >{account.nickName}</option>))}
-                </select>
-                {
-                    fromAccount.balance ? <p>Balance: {fromAccount.balance}</p> : null
-                }
+        <div className="main-body">
+            <h4>Transfer Between Accounts</h4>
+            <div style={{display: "inline-block"}}>
+                <div>
+                    <h4>From:</h4>
+                    <select onChange={(e) => fromHandler(e.target.value)}>
+                        <option value={0} >Select an Account</option>
+                        {accounts.map((account) => (
+                            <option key={account._id} value={account._id} >{account.nickName}</option>))}
+                    </select>
+                    {
+                        fromAccount.balance ? <p>Balance: {fromAccount.balance}</p> : null
+                    }
+                </div>
+                <div>
+                    <h4>To:</h4>
+                    <select onChange={(e) => toHandler(e.target.value)}>
+                        <option value={0}>Select an Account</option>
+                        {accounts.map((account) => (
+                            <option key={account._id} value={account._id} >{account.nickName}</option>))}
+                    </select>
+                    {
+                        toAccount.balance ? <p>Balance: {toAccount.balance}</p> : null
+                    }
+                </div>
             </div>
-            <div>
-                <h3>To:</h3>
-                <select onChange={(e) => toHandler(e.target.value)}>
-                    <option value={0}>Select an Account</option>
-                    {accounts.map((account) =>(
-                    <option key={account._id} value={account._id} >{account.nickName}</option>))}
-                </select>
-                {
-                    toAccount.balance ? <p>Balance: {toAccount.balance}</p> : null
-                }
-            </div>
-            <div>
-            <label>Transfer Amount: </label>
-            <input type="number" step=".01" onChange={(e) => setTransferAmount(e.target.value)} />
+            <div style={{display: "inline-block"}}>
+                <label>Transfer Amount: </label>
+                <input type="number" step=".01" onChange={(e) => setTransferAmount(e.target.value)} />
             </div>
             <div>
                 <button onClick={(e) => transferFunds()}>Transfer</button>
+            </div>
+            <br />
+            <div>
+                <Link to={`/${props.id}`}><button>Back</button></Link>
             </div>
         </div>
     )

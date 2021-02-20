@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
+import Accordion  from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import LogOutButton from '../Components/LogOutButton';
 
 const UserPage = (props) => {
     const [firstName, setFirstName] = useState();
@@ -21,10 +24,11 @@ const UserPage = (props) => {
         <div className="main-body">
             <div style={{display : "inline-block"}}><p>Welcome:</p>
             <p>{firstName}</p>
+            <LogOutButton/>
             </div>
             <div style={{display : "inline-block"}}>
             <p>Accounts:</p>
-            <table>
+            {/* <table>
                 <tr>
                     <th>Account Name</th>
                     <th>Account Type</th>
@@ -37,7 +41,23 @@ const UserPage = (props) => {
                         <td>{account.balance}</td>
                     </tr>
                 ))}
-            </table>
+            </table> */}
+            <Accordion>
+                {accounts.map((account, index) => (
+                    <Card>
+                        <Accordion.Toggle as={Card.Header} eventKey={index}>
+                            {account.nickName}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey={index}>
+                            <Card.Body>
+                                Type of Account: {account.accountType}
+                                <br/>
+                                Balance: {account.balance}
+                            </Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+                ))}
+            </Accordion>
             <Link to={`/${props.id}/account`}><button>Open a new account</button></Link>
             <br/>
             <Link to={`/${props.id}/transfer`}><button>Transfer between accounts</button></Link>

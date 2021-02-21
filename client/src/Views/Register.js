@@ -9,7 +9,6 @@ const Register = (props) => {
     return(
         <div className="main-body">
             <SignUp />
-            <Link to={'/'}><Button>Back to Login</Button></Link>
         </div>
     )
 }

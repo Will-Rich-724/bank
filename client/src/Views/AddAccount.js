@@ -3,6 +3,9 @@ import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const AddAccount = (props) => {
     const [firstName, setFirstName] = useState();
@@ -38,7 +41,14 @@ const AddAccount = (props) => {
 
     return (
         <div className="main-body">
-            <h4>Open a New Account</h4>
+            <Container>
+                <Row>
+                    <Col>
+            <div><h4>Open a New Account</h4>
+            <Link to={`/${props.id}`}><Button>Back</Button></Link>
+            </div>
+            </Col>
+            <Col xs={9}>
             <Form onSubmit={AddAccount}>
             <Form.Group controlId="formBasicAccountNickName">
                 <Form.Label>Account Name:</Form.Label>
@@ -55,13 +65,16 @@ const AddAccount = (props) => {
             </Form.Group>
             <Form.Group controlId="formBasicAccountBalance">
                 <Form.Label>Deposit:</Form.Label>
-                <Form.Control type="number" placeholder="Deposit Initial Account Amount" onChange={e => setBalance(e.target.value)} />
+                <Form.Control type="number" step=".01" placeholder="Deposit Initial Account Amount" onChange = {e => setBalance(e.target.value)} />
+                <Form.Text className="text-muted">
+                    0 may be entered for Deposit if you intend to fund by transfering money from a different account later
+                </Form.Text>
             </Form.Group>
+            <Button type="submit"> Open Account</Button>
             </Form>
-            <br/>
-            <div>
-                <Link to={`/${props.id}`}><Button>Back</Button></Link>
-            </div>
+            </Col>
+            </Row>
+            </Container>
         </div>
     )
 };

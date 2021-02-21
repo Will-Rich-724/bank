@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Transfer = (props) => {
     const [firstName, setFirstName] = useState();
@@ -37,14 +42,15 @@ const Transfer = (props) => {
         setToAccount(toAcct);
     };
 
-    const transferFunds = () => {
+    const transferFunds = (e) => {
+        e.preventDefault()
         let amount = parseFloat(transferAmount)
         //From Account process and put first
         setBalance(fromAccount.balance -= amount);
         console.log(fromAccount.balance);
         
         axios.put(`http://localhost:8000/api/user/${props.id}/${fromAccount._id}`, {
-            balance
+            "balance" : balance 
         }, { withCredentials: true})
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -53,7 +59,7 @@ const Transfer = (props) => {
         console.log(toAccount.balance);
         //To Account put
         axios.put(`http://localhost:8000/api/user/${props.id}/${toAccount._id}`, {
-            balance
+            "balance" : balance
         }, {withCredentials: true})
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -61,42 +67,48 @@ const Transfer = (props) => {
 
     return (
         <div className="main-body">
-            <h4>Transfer Between Accounts</h4>
-            <div style={{display: "inline-block"}}>
-                <div>
-                    <h4>From:</h4>
-                    <select onChange={(e) => fromHandler(e.target.value)}>
-                        <option value={0} >Select an Account</option>
+            <Container>
+                <Row>
+                    <Col>
+            <div><h4>Transfer Between Accounts</h4>
+            <Link to={`/${props.id}`}><Button>Back</Button></Link>
+            </div>
+            </Col>
+            <Col xs={9}>
+            <Form>
+                <Form.Row>
+                <Form.Group as={Col} controlId="fromAccount">
+                    <Form.Label>From Account:</Form.Label>
+                    <Form.Control as="select" onChange={(e) => fromHandler(e.target.value)}>
+                        <option value={0}>Select an Account</option>
                         {accounts.map((account) => (
-                            <option key={account._id} value={account._id} >{account.nickName}</option>))}
-                    </select>
+                            <option key={account._id} value={account._id} >{account.nickName} ; {account.accountType}</option>))}
+                    </Form.Control>
                     {
                         fromAccount.balance ? <p>Balance: {fromAccount.balance}</p> : null
                     }
-                </div>
-                <div>
-                    <h4>To:</h4>
-                    <select onChange={(e) => toHandler(e.target.value)}>
+                </Form.Group>
+                <Form.Group as={Col} controlId="toAccount">
+                    <Form.Label>To Account:</Form.Label>
+                    <Form.Control as="select" onChange={(e) => toHandler(e.target.value)}>
                         <option value={0}>Select an Account</option>
                         {accounts.map((account) => (
-                            <option key={account._id} value={account._id} >{account.nickName}</option>))}
-                    </select>
+                            <option key={account._id} value={account._id} >{account.nickName} ; {account.accountType}</option>))}
+                    </Form.Control>
                     {
                         toAccount.balance ? <p>Balance: {toAccount.balance}</p> : null
                     }
-                </div>
-            </div>
-            <div style={{display: "inline-block"}}>
-                <label>Transfer Amount: </label>
-                <input type="number" step=".01" onChange={(e) => setTransferAmount(e.target.value)} />
-            </div>
-            <div>
-                <button onClick={(e) => transferFunds()}>Transfer</button>
-            </div>
-            <br />
-            <div>
-                <Link to={`/${props.id}`}><button>Back</button></Link>
-            </div>
+                </Form.Group>
+                </Form.Row>
+                <Form.Group controlId="transferAmount">
+                    <Form.Label>Transfer Amount:</Form.Label>
+                    <Form.Control type="number" step=".01" palceholder="Amount to  be transer" onChange={(e) => setTransferAmount(e.target.value)} />
+                </Form.Group>
+                <Button onClick={(e) => transferFunds(e)}>Transfer</Button>
+            </Form>
+            </Col>
+            </Row>
+            </Container>
         </div>
     )
 };

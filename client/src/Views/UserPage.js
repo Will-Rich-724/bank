@@ -1,9 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
-import Accordion  from 'react-bootstrap/Accordion';
+import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import LogOutButton from '../Components/LogOutButton';
+import UserCircle from '../Components/UserCircle';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const UserPage = (props) => {
     const [firstName, setFirstName] = useState();
@@ -11,7 +16,7 @@ const UserPage = (props) => {
     const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/user/${props.id}`, {withCredentials: true})
+        axios.get(`http://localhost:8000/api/user/${props.id}`, { withCredentials: true })
             .then(res => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
@@ -20,48 +25,43 @@ const UserPage = (props) => {
             .catch(err => console.log(err));
     }, []);
 
-    return(
+    return (
         <div className="main-body">
-            <div style={{display : "inline-block"}}><p>Welcome:</p>
-            <p>{firstName}</p>
-            <LogOutButton/>
+        <Container>
+            <Row>
+            <Col>
+            <div>
+                <p>Welcome:</p>
+                <p>{firstName}</p>
+                <UserCircle firstName={firstName} lastName={lastName} />
+                <LogOutButton />
             </div>
-            <div style={{display : "inline-block"}}>
-            <p>Accounts:</p>
-            {/* <table>
-                <tr>
-                    <th>Account Name</th>
-                    <th>Account Type</th>
-                    <th>Account Balance</th>
-                </tr>
-                {accounts.map((account, index) => (
-                    <tr key={index}>
-                        <td>{account.nickName}</td>
-                        <td>{account.accountType}</td>
-                        <td>{account.balance}</td>
-                    </tr>
-                ))}
-            </table> */}
-            <Accordion>
-                {accounts.map((account, index) => (
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey={index}>
-                            {account.nickName}
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey={index}>
-                            <Card.Body>
-                                Type of Account: {account.accountType}
-                                <br/>
+            </Col>
+            <Col sm={9}>
+            <div>
+                <p>Accounts:</p>
+                <Accordion>
+                    {accounts.map((account, index) => (
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey={account._id}>
+                                {account.nickName}
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey={account._id}>
+                                <Card.Body>
+                                    Type of Account: {account.accountType}
+                                    <br />
                                 Balance: {account.balance}
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                ))}
-            </Accordion>
-            <Link to={`/${props.id}/account`}><button>Open a new account</button></Link>
-            <br/>
-            <Link to={`/${props.id}/transfer`}><button>Transfer between accounts</button></Link>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    ))}
+                </Accordion>
+                <Link to={`/${props.id}/account`}><Button className="btn">Open a new account</Button></Link>
+                <Link to={`/${props.id}/transfer`}><Button className="btn">Transfer between accounts</Button></Link>
             </div>
+            </Col>
+            </Row>
+            </Container>
         </div>
     )
 }

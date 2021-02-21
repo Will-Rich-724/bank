@@ -37,7 +37,8 @@ const SignIn = (props) => {
                 <Form.Control type="password" placeholder="password" onChange={e => setPassword(e.target.value)} />
             </Form.Group>
             <p>{errorMessage ? errorMessage : ""} </p>
-            <Button variant="primary" type="Submit">Sign In</Button>
+            <Button variant="primary" class="mr-1" type="Submit">Sign In</Button>
+            <Link to={'/register'}><Button>Sign Up</Button></Link>
         </Form>
     )
 };

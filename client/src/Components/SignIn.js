@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 const SignIn = (props) => {
     const [email, setEmail] = useState("");
@@ -26,18 +27,18 @@ const SignIn = (props) => {
     };
 
     return(
-        <form onSubmit={login}>
-            <div>
-            <label>Email:</label>
-            <input type="text" name="email" onChange={e => setEmail(e.target.value)} value={email} />
-            </div>
-            <div>
-            <label>Password:</label>
-            <input type="password" name="password" onChange={e => setPassword(e.target.value)} value={password} />
-            </div>
-            <input type="submit" value="Sign In" />
+        <Form onSubmit={login}>
+            <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="password" onChange={e => setPassword(e.target.value)} />
+            </Form.Group>
             <p>{errorMessage ? errorMessage : ""} </p>
-        </form>
+            <Button variant="primary" type="Submit">Sign In</Button>
+        </Form>
     )
 };
 

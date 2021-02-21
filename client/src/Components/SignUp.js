@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 
 const SignUp = (props) => {
     const [firstName, setFirstName] = useState("");
@@ -27,11 +28,7 @@ const SignUp = (props) => {
             { withCredentials: true})
             .then(res => {
                 console.log(res);
-                setFirstName("");
-                setLastName("");
-                setEmail("");
-                setPassword("");
-                setConfirmPassword("");
+                navigate('/');
             })
             .catch(err => {
                 console.log(err);
@@ -40,34 +37,36 @@ const SignUp = (props) => {
     };
 
     return(
-        <form onSubmit={register}>
-            <div>
-                <label>First Name:</label>
-                <input type="text" name="firstName" onChange={e => setFirstName(e.target.value)} value={firstName}></input>
+        <div>
+        <Form onSubmit={register}>
+            <Form.Group controlId="formBasicFirstName">
+                <Form.Label>First Name:</Form.Label>
+                <Form.Control type="text" placeholder="Enter First Name" onChange={e => setFirstName(e.target.value)} />
                 {errors.firstName ? <p>{errors.firstName.message}</p> : ""}
-            </div>
-            <div>
-                <label>Last Name:</label>
-                <input type="text" name="lastName" onChange={e => setLastName(e.target.value)} value={lastName}></input>
+            </Form.Group>
+            <Form.Group controlId="formBasicLastName">
+                <Form.Label>Last Name:</Form.Label>
+                <Form.Control type="text" placeholder="Enter Last Name" onChange={e => setLastName(e.target.value)} />
                 {errors.lastName ? <p>{errors.lastName.message}</p> : ""}
-            </div>
-            <div>
-                <label>Email:</label>
-                <input type="email" name="email" onChange={e => setEmail(e.target.value)} value={email}></input>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email Address:</Form.Label>
+                <Form.Control type="email" placeholder="Enter Email" onChange={e => setEmail(e.target.value)} />
                 {errors.email ? <p>{errors.email.message}</p> : ""}
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password" onChange={e => setPassword(e.target.value)} value={password}></input>
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control type="password" placeholder="Enter Password" onChange={e => setPassword(e.target.value)} />
                 {errors.password ? <p>{errors.password.message}</p> : ""}
-            </div>
-            <div>
-                <label>Confirm Password:</label>
-                <input type="password" name="confirmPassword" onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword}></input>
+            </Form.Group>
+            <Form.Group controlId="formBasicConfirmPassword">
+                <Form.Label>Confirm Password:</Form.Label>
+                <Form.Control type="password" placeholder="Confirm Password" onChange={e => setConfirmPassword(e.target.value)} />
                 {errors.confirmPassword ? <p>{errors.confirmPassword.message}</p> : ""}
-            </div>
-            <input type="Submit" value="Sign Up" />
-        </form>
+            </Form.Group>
+            <Button variant="primary" type="Submit">Sign Up</Button>
+        </Form>
+        </div>
     )
 };
 

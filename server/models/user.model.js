@@ -19,19 +19,23 @@ const UserSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
-            require: [true, "A first name is required"]
+            require: [true, "A first name is required"],
+            minlength: [2, "first Name must have at least two letters"]
         },
         lastName: {
             type: String,
-            require: [true, "A last name is required"]
+            require: [true, "A last name is required"],
+            minlength: [2, "last Name must have at least two letters"]
         },
         email: {
             type: String,
-            require: [true, "An email is required"]
+            require: [true, "An email is required"],
+            minlength: [2, "email must have at least two letters"]
         },
         password: {
             type: String,
-            require: [true, "A password is required"]
+            require: [true, "A password is required"],
+            minlength: [2, "password must have at least two characters"]
         },
         accounts: {
             type: [AccountSchema],

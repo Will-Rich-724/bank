@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
 
 import SignIn from '../Components/SignIn';
 
@@ -12,7 +13,7 @@ const LogIn = (props) => {
             </div>
             <div style={{display : "inline-block"}}>
                 <SignIn />
-                <Link to={'/register'}><button>Sign Up</button></Link>
+                <Link to={'/register'}><Button>Sign Up</Button></Link>
             </div>
         </div>
     )

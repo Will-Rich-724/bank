@@ -9,6 +9,7 @@ const Transfer = (props) => {
     const [fromAccount, setFromAccount] = useState({});
     const [toAccount, setToAccount] = useState({});
     const [transferAmount, setTransferAmount] = useState(0);
+    const [balance, setBalance] = useState();
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/user/${props.id}`, { withCredentials: true })
@@ -38,10 +39,24 @@ const Transfer = (props) => {
 
     const transferFunds = () => {
         let amount = parseFloat(transferAmount)
-        fromAccount.balance -= amount;
+        //From Account process and put first
+        setBalance(fromAccount.balance -= amount);
         console.log(fromAccount.balance);
-        toAccount.balance += amount;
+        
+        axios.put(`http://localhost:8000/api/user/${props.id}/${fromAccount._id}`, {
+            balance
+        }, { withCredentials: true})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
+        setBalance(toAccount.balance += amount);
         console.log(toAccount.balance);
+        //To Account put
+        axios.put(`http://localhost:8000/api/user/${props.id}/${toAccount._id}`, {
+            balance
+        }, {withCredentials: true})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     };
 
     return (

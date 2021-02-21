@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Router, Link, navigate } from '@reach/router';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
 
 const LogOutButton = (props) => {
     const logout = () => {
@@ -15,7 +16,7 @@ const LogOutButton = (props) => {
     }
 
     return(
-        <button onClick={logout}>Logout</button>
+        <Button onClick={logout}>Logout</Button>
     )
 };
 

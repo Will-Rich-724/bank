@@ -12,7 +12,7 @@ module.exports = app => {
     app.get("/api/user/:user_id/:account_id", userController.getOneAccount);
     app.put("/api/user/:user_id/:account_id", userController.updateOneAccount);
 
-    app.get("/api/user/:id", authenticate, userController.getOne);
+    app.get("/api/user/:id", userController.getOne);
 }
 
 //When working getAll and any account related routes should have authenticate added

@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
+// const Account = require("../models/account.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { findByIdAndUpdate } = require("../models/user.model");
 
 module.exports = {
     register(req, res) {
@@ -87,9 +87,15 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
-    updateOneAccount(req, res) {
-        User.updateOne({ _id: req.params.user_id, 'account._id' : req.params.account_id}, {'$set': {'accounts.$' : [req.body]}}, {session: null})
-        .then(updatedAccount => res.json(updatedAccount))
-        .catch(err => res.json(err));
+    updateOneAccount (req, res) {
+        User.findOneAndUpdate({_id: req.params.user_id, 'accounts._id': req.params.account_id},
+        {
+            $set: {
+                'accounts.$.balance' : req.body.balance
+            }
+        }, {new:true, useFindAndModify: false})
+        .then(newUser => {res.send(newUser.accounts)})
+        .catch(err => res.send(err))
     }
-}
+
+};

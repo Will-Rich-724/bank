@@ -14,7 +14,7 @@ const Transfer = (props) => {
     const [fromAccount, setFromAccount] = useState({});
     const [toAccount, setToAccount] = useState({});
     const [transferAmount, setTransferAmount] = useState(0);
-    const [balance, setBalance] = useState();
+
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/user/${props.id}`, { withCredentials: true })
@@ -43,26 +43,29 @@ const Transfer = (props) => {
     };
 
     const transferFunds = (e) => {
-        e.preventDefault()
         let amount = parseFloat(transferAmount)
         //From Account process and put first
-        setBalance(fromAccount.balance -= amount);
+        fromAccount.balance -= amount
         console.log(fromAccount.balance);
         
         axios.put(`http://localhost:8000/api/user/${props.id}/${fromAccount._id}`, {
-            "balance" : balance 
+            "balance" : fromAccount.balance 
         }, { withCredentials: true})
             .then(res => console.log(res))
+                
             .catch(err => console.log(err));
 
-        setBalance(toAccount.balance += amount);
+        toAccount.balance += amount;
         console.log(toAccount.balance);
         //To Account put
         axios.put(`http://localhost:8000/api/user/${props.id}/${toAccount._id}`, {
-            "balance" : balance
+            "balance" : toAccount.balance
         }, {withCredentials: true})
             .then(res => console.log(res))
+                // .then(navigate(`/${props.id}`))
             .catch(err => console.log(err));
+
+    
     };
 
     return (
@@ -85,7 +88,7 @@ const Transfer = (props) => {
                             <option key={account._id} value={account._id} >{account.nickName} ; {account.accountType}</option>))}
                     </Form.Control>
                     {
-                        fromAccount.balance ? <p>Balance: {fromAccount.balance}</p> : null
+                        fromAccount.balance ? <p>Balance: ${fromAccount.balance}</p> : null
                     }
                 </Form.Group>
                 <Form.Group as={Col} controlId="toAccount">
@@ -96,13 +99,13 @@ const Transfer = (props) => {
                             <option key={account._id} value={account._id} >{account.nickName} ; {account.accountType}</option>))}
                     </Form.Control>
                     {
-                        toAccount.balance ? <p>Balance: {toAccount.balance}</p> : null
+                        toAccount.balance ? <p>Balance: ${toAccount.balance}</p> : null
                     }
                 </Form.Group>
                 </Form.Row>
                 <Form.Group controlId="transferAmount">
                     <Form.Label>Transfer Amount:</Form.Label>
-                    <Form.Control type="number" step=".01" palceholder="Amount to  be transer" onChange={(e) => setTransferAmount(e.target.value)} />
+                    <Form.Control type="number" step=".01" palceholder="Amount to  be transfer" onChange={(e) => setTransferAmount(e.target.value)} />
                 </Form.Group>
                 <Button onClick={(e) => transferFunds(e)}>Transfer</Button>
             </Form>

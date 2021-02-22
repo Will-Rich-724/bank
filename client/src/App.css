@@ -2,7 +2,7 @@
   margin: 0 auto;
   background-image: linear-gradient(to bottom right, lightblue, lightgreen);
   height: 1000px;
-  width: 1000px;
+  /* width: 1000px; */
   vertical-align: top;
   display: flex;
   justify-content: center

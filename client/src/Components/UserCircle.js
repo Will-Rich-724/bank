@@ -4,13 +4,14 @@ import axios from 'axios';
 
 const UserCircle = (props) => {
     const {firstName, lastName} = props;
-    const newFirst = firstName;
-    const newLast = lastName;
     
+    const initials = (firstName) => {
+        
+    }
     
     return(
         <div>
-            {/* {fnfl}{lnfl} */}
+            {initials(firstName)}
         </div>
     )
 }

@@ -5,10 +5,10 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import LogOutButton from '../Components/LogOutButton';
-import UserCircle from '../Components/UserCircle';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import CloseAccountButton from '../Components/CloseAccountButton';
 
 const UserPage = (props) => {
     const [firstName, setFirstName] = useState();
@@ -25,21 +25,24 @@ const UserPage = (props) => {
             .catch(err => console.log(err));
     }, []);
 
+    const removeFromDom = (accountId) => {
+        setAccounts(accounts.filter(account => account._id != accountId))
+    }
+
     return (
         <div className="main-body">
         <Container>
             <Row>
             <Col>
             <div>
-                <p>Welcome:</p>
-                <p>{firstName}</p>
-                <UserCircle firstName={firstName} lastName={lastName} />
+                <h5>Welcome:</h5>
+                <h4>{firstName}</h4>
                 <LogOutButton />
             </div>
             </Col>
             <Col sm={9}>
             <div>
-                <p>Accounts:</p>
+                <h5>Accounts:</h5>
                 <Accordion>
                     {accounts.map((account, index) => (
                         <Card>
@@ -48,9 +51,17 @@ const UserPage = (props) => {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey={account._id}>
                                 <Card.Body>
+                                    <Row>
+                                    <Col>
                                     Type of Account: {account.accountType}
                                     <br />
-                                Balance: {account.balance}
+                                    Balance: ${account.balance}
+                                    <br/>
+                                    </Col>
+                                    <Col>
+                                    <CloseAccountButton accountId={account._id} userId={props.id} balance={account.balance} successCallback={() =>removeFromDom(account._id)}/>
+                                    </Col>
+                                    </Row>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>

@@ -96,6 +96,23 @@ module.exports = {
         }, {new:true, useFindAndModify: false})
         .then(newUser => {res.send(newUser.accounts)})
         .catch(err => res.send(err))
-    }
+    },
 
-};
+    // deleteOneAccount (req, res) {
+    //     User.accounts.id({_id: req.params.id}).remove();
+    //     User.save(function (err) {
+    //         if(err) res.json(err);
+    //         res.json('subdoc removed')
+    //     });
+    // }
+    
+    deleteOnAccount2(req, res) {
+        User.findOneAndUpdate({ _id: req.params.user_id},
+            { $pull: { accounts: { _id: req.params.account_id} } },
+            { new: true})
+        .then(results => res.json(results))
+        .catch(err => res.json(err))
+    }
+    
+    
+}

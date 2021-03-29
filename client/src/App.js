@@ -12,7 +12,6 @@ import Transfer from "./Views/Transfer";
 function App() {
   return (
     <div className="App">
-      Will was here
       <Router>
         <LogIn path='/' />
         <Register path="/register" />

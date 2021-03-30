@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2e23a855.chunk.css",
+    "main.js": "/static/js/main.5909539a.chunk.js",
+    "main.js.map": "/static/js/main.5909539a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1e5e21b9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1e5e21b9.js.map",
+    "static/css/2.150d169a.chunk.css": "/static/css/2.150d169a.chunk.css",
+    "static/js/2.25d5cf00.chunk.js": "/static/js/2.25d5cf00.chunk.js",
+    "static/js/2.25d5cf00.chunk.js.map": "/static/js/2.25d5cf00.chunk.js.map",
+    "static/js/3.66819a6d.chunk.js": "/static/js/3.66819a6d.chunk.js",
+    "static/js/3.66819a6d.chunk.js.map": "/static/js/3.66819a6d.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/static/css/2.150d169a.chunk.css.map",
+    "static/css/main.2e23a855.chunk.css.map": "/static/css/main.2e23a855.chunk.css.map",
+    "static/js/2.25d5cf00.chunk.js.LICENSE.txt": "/static/js/2.25d5cf00.chunk.js.LICENSE.txt",
+    "static/media/fakeBanklogo.e6449a51.jpg": "/static/media/fakeBanklogo.e6449a51.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1e5e21b9.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.25d5cf00.chunk.js",
+    "static/css/main.2e23a855.chunk.css",
+    "static/js/main.5909539a.chunk.js"
+  ]
+}

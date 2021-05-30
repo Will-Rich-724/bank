@@ -11,9 +11,9 @@ const AddAccount = (props) => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [accounts, setAccounts] = useState([]);
-    const [nickName, setNickName] = useState("");
+    const [nickName, setNickName] = useState("New Account");
     const [accountType, setAccountType] = useState("Savings");
-    const [balance, setBalance] = useState("");
+    const [balance, setBalance] = useState(0);
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
